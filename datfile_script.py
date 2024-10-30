@@ -49,21 +49,17 @@ class darwin():
         for coord in range(3):
             centroid[coord] = sum([(list(s)[coord]*weights[idx]) for idx,s in enumerate(self.S) if s in cluster])/sum([weights[idx] for idx,s in enumerate(self.S) if s in cluster])
         return tuple(centroid)
-    #qui io ho bisogno del numero di pixels colore per colore
 
     def get_distance(self, c, cluster, weights):
         dist=0
         for idx,s in enumerate(self.S):
             if s in cluster:
                 dist += (((c[0]-s[0])**2 + (c[1]-s[1])**2 + (c[2]-s[2])**2) * weights[idx]) 
-            # else:
-            #     dist=dist 
         return dist
 
     def select_centers(self):
         survivors=[]
         distances=[]
-        #clusters=[self.partition_to_clusters(self.S, p) for p in self.generate_partitions(len(self.S), self.k)]
         for cluster in self.clusters:
             if len(cluster)==0:
                 continue
@@ -92,7 +88,6 @@ class darwin():
 
 
 class writer():
-    #scrive un dat file specifico per me :) cioe con specificatamente due parametri
 
     def __init__(self, set_colors, set_centers, k, dist_list, ass_matrix, dat_file_path):
         self.set_colors=set_colors
@@ -103,7 +98,6 @@ class writer():
         self.dat_file_path=dat_file_path
     
     def write_dat_file(self):
-        #writes the sets and parameters to the .dat file in the glpk format.
 
         s_indices = list(range(1, len(self.set_colors) + 1))
         c_indices = list(range(1, len(self.set_centers) + 1))
@@ -153,19 +147,16 @@ def main():
     input_image_path = sys.argv[1]
     dat_file_path= sys.argv[3]
 
-    #try:
-    k = int(sys.argv[2])
-    # except ValueError:
-    #     print("Error: k must be an integer.")
-    #     sys.exit(1)
+    try:
+        k = int(sys.argv[3])
+    except ValueError:
+        print("Error: k must be an integer.")
+        sys.exit(1)
 
-# qui mi chiamo tutto creando da ogni classe gli oggetti speicifci per me :)
     selected_data=darwin(input_image_path, k)
 
-    #set_centers, dist_list=selected_data.select_centers()
     print('\nthere are ',len(selected_data.set_centers),'possible centers')
-    #dist_matrix=distances(selected_data.S, set_centers).get_distance_matrix()
-    writer(selected_data.S,selected_data.set_centers, k, selected_data.dist_list, selected_data.assignments_matrix(), dat_file_path).write_dat_file() #< questo dovrebbe scrivermi il file
+    writer(selected_data.S,selected_data.set_centers, k, selected_data.dist_list, selected_data.assignments_matrix(), dat_file_path).write_dat_file() 
 
 if __name__ == "__main__":
     main()
