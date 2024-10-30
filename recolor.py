@@ -1,9 +1,7 @@
 from PIL import Image
 import random
 import sys
-"""
-questo funziona e ha tutto, cioe anche calcola dissimilarity 
-"""
+
 class kmeans_image():
     def __init__(self,im,k):
         self.im = Image.open(im)
@@ -60,7 +58,7 @@ class kmeans_image():
             if len(cluster)>0:
                 centroid_temp=list(centroid)
                 for coord in range(3):
-                    centroid_temp[coord]= sum([x[coord] for x in cluster])/len(cluster) #non round
+                    centroid_temp[coord]= sum([x[coord] for x in cluster])/len(cluster)
                 centroid=tuple(centroid_temp)
                 new_C.append(centroid)
             else:
