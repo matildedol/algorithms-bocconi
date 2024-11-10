@@ -5,7 +5,7 @@ Usage:
 
 `python3 recolor.py {input-image} {output-image} {k}`
 
-Alternatively, an IP model is designed for the k-means problem and solved exactly with glpk. 
+Then, an IP model is designed for the compressing problem, to solve it exactly with glpk. 
 You can find a detailed descirption of the model in IPmodel.pdf. The file **datfile_script.py** creates the .dat file of data inputs for the problem, while **kmeans.mod** specifies the model. 
 
 They should be implemented as:
